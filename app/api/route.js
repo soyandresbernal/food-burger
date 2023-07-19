@@ -12,8 +12,9 @@ const createUserTable = () => {
     const query = `
         CREATE TABLE IF NOT EXISTS users (
         id integer PRIMARY KEY,
-        username text,
+        fullname text,
         password text,
+        cellphone text,
         email text UNIQUE)`;
     return database.run(query);
 }
@@ -23,9 +24,10 @@ const UserType = new graphql.GraphQLObjectType({
     name: "User",
     fields: {
         id: { type: graphql.GraphQLID },
-        username: { type: graphql.GraphQLString },
+        fullname: { type: graphql.GraphQLString },
         password: { type: graphql.GraphQLString },
-        email: { type: graphql.GraphQLString }   
+        cellphone: { type: graphql.GraphQLString }, 
+        email: { type: graphql.GraphQLString }
     }
 });
 
@@ -77,10 +79,13 @@ var mutationType = new graphql.GraphQLObjectType({
         createUser: {
             type: UserType,
             args: {
-                username: {
+                fullname: {
                     type: new graphql.GraphQLNonNull(graphql.GraphQLString)
                 },
                 password: {
+                    type: new graphql.GraphQLNonNull(graphql.GraphQLString)
+                },
+                cellphone: {
                     type: new graphql.GraphQLNonNull(graphql.GraphQLString)
                 },
                 email: {
@@ -88,12 +93,13 @@ var mutationType = new graphql.GraphQLObjectType({
                 }
             },
             resolve: (root, {
-                username,
+                fullname,
                 password,
+                cellphone,
                 email
             }) => {
                 return new Promise((resolve, reject) => {
-                    database.run('INSERT INTO users (username, password, email) VALUES (?,?,?);', [username, password, email], (err) => {
+                    database.run('INSERT INTO users (fullname, password, cellphone, email) VALUES (?,?,?, ?);', [fullname, password, cellphone, email], (err) => {
                         if (err) {
                             reject(null);
                         }
@@ -101,8 +107,9 @@ var mutationType = new graphql.GraphQLObjectType({
 
                             resolve({
                                 id: row["id"],
-                                username: username,
+                                fullname: fullname,
                                 password: password,
+                                cellphone: cellphone,
                                 email: email
                             });
                         });
@@ -117,10 +124,13 @@ var mutationType = new graphql.GraphQLObjectType({
                 id: {
                     type: new graphql.GraphQLNonNull(graphql.GraphQLID)
                 },
-                username: {
+                fullname: {
                     type: new graphql.GraphQLNonNull(graphql.GraphQLString)
                 },
                 password: {
+                    type: new graphql.GraphQLNonNull(graphql.GraphQLString)
+                },
+                cellphone: {
                     type: new graphql.GraphQLNonNull(graphql.GraphQLString)
                 },
                 email: {
@@ -129,12 +139,13 @@ var mutationType = new graphql.GraphQLObjectType({
             },
             resolve: (root, {
                 id,
-                username,
+                fullname,
                 password,
+                cellphone,
                 email
             }) => {
                 return new Promise((resolve, reject) => {
-                    database.run('UPDATE users SET username = (?), password = (?), email = (?) WHERE id = (?);', [username, password, email, id], (err) => {
+                    database.run('UPDATE users SET fullname = (?), password = (?), cellphone = (?), email = (?) WHERE id = (?);', [fullname, password, cellphone, email, id], (err) => {
                         if (err) {
                             reject(err);
                         }
