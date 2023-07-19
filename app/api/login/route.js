@@ -8,7 +8,6 @@ const database = new sqlite3.Database("db/my.db");
 
 export async function POST(req, res) {
   const body = await req.json(); 
-  console.log(body);
   const {username, password} = body;
   const user = await getUser(username, password)
   if (user){
@@ -33,8 +32,7 @@ function getUser(username, password){
   return new Promise((resolve, reject) => {
     database.all("SELECT * FROM users WHERE username = (?) AND password = (?);", [username, password], function (err, rows) {
       if (err) {
-        console.log("Error");
-          reject({});
+        reject({});
       }
       resolve(rows[0]);
     });

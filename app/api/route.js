@@ -182,12 +182,10 @@ const server = new ApolloServer({
 const handler = startServerAndCreateNextHandler(server);
 
 export async function GET(request) {
-    console.log("Hello");
     return handler(request);
 }
 
 export async function POST(req) {
-    console.log((validateToken(req)));
     if (validateToken(req)){
         return handler(req);
     } else {
@@ -198,7 +196,6 @@ export async function POST(req) {
 
 function validateToken(req) {
     const userToken = req.headers.get('user-token');
-    console.log(userToken);
     if (!userToken) {
         return false;
     }
@@ -208,7 +205,6 @@ function validateToken(req) {
         payload = jwt.decode(userToken, 'secret string');
     }
     catch (err) {
-        console.log(err);
         return false;
     };
   
