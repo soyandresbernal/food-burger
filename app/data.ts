@@ -495,90 +495,20 @@ export const pizzas: Products = [
 	}
 ];
 
-export const singleProduct: Products = [
-	{
-		id: 1,
-		title: 'Classic Cheeseburger',
-		desc: 'A timeless favorite featuring a juicy beef patty, melted cheddar cheese, fresh lettuce, sliced tomatoes, pickles, and our special burger sauce, all on a toasted sesame seed bun.',
-		img: '/temporary/p1.png',
-		price: 12.9,
-		options: [
-			{
-				title: 'Single Patty',
-				additionalPrice: 0
-			},
-			{
-				title: 'Double Patty',
-				additionalPrice: 4
-			}
-		]
-	},
-	{
-		id: 2,
-		title: 'Spicy Jalapeño Burger',
-		desc: 'Ignite your taste buds with a fiery kick! This burger features a succulent beef patty, fiery jalapeños, pepper jack cheese, and a zesty chipotle mayo sauce, and all the classic fixings on a toasted bun.',
-		img: '/temporary/h2.png',
-		price: 14.9,
-		options: [
-			{
-				title: 'Single Patty',
-				additionalPrice: 0
-			},
-			{
-				title: 'Double Patty',
-				additionalPrice: 4
-			}
-		]
-	},
-	{
-		id: 3,
-		title: 'Mushroom Swiss Burger',
-		desc: 'Indulge in a burger topped with sautéed mushrooms and melted Swiss cheese, served with fresh lettuce, sliced tomatoes, onions, and our special burger sauce, all on a toasted bun.',
-		img: '/temporary/h3.png',
-		price: 13.9,
-		options: [
-			{
-				title: 'Single Patty',
-				additionalPrice: 0
-			},
-			{
-				title: 'Double Patty',
-				additionalPrice: 4
-			}
-		]
-	},
-	{
-		id: 4,
-		title: 'BBQ Bacon Burger',
-		desc: 'Experience the perfect combination of smoky flavors! This burger comes with crispy bacon, melted cheddar cheese, tangy BBQ sauce, fresh lettuce, sliced tomatoes, and pickles on a toasted bun.',
-		img: '/temporary/h4.png',
-		price: 15.9,
-		options: [
-			{
-				title: 'Single Patty',
-				additionalPrice: 0
-			},
-			{
-				title: 'Double Patty',
-				additionalPrice: 4
-			}
-		]
-	},
-	{
-		id: 5,
-		title: 'Veggie Delight Burger',
-		desc: 'For the veggie lovers, this burger is a delight! It features a delicious vegetable patty, topped with lettuce, sliced tomatoes, onions, pickles, and our special sauce on a toasted bun.',
-		img: '/temporary/h5.png',
-		price: 12.9,
-		options: [
-			{
-				title: 'Single Patty',
-				additionalPrice: 0
-			},
-			{
-				title: 'Double Patty',
-				additionalPrice: 4
-			}
-		]
-	}
-];
+export const singleProduct: Product = {
+	id: 1,
+	title: 'Classic Cheeseburger',
+	desc: 'A timeless favorite featuring a juicy beef patty, melted cheddar cheese, fresh lettuce, sliced tomatoes, pickles, and our special burger sauce, all on a toasted sesame seed bun.',
+	img: '/temporary/p1.png',
+	price: 12.9,
+	options: [
+		{
+			title: 'Single Patty',
+			additionalPrice: 0
+		},
+		{
+			title: 'Double Patty',
+			additionalPrice: 4
+		}
+	]
+};
