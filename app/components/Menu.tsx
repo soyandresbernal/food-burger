@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,29 +19,34 @@ const Menu = () => {
 		<div>
 			<Image
 				src={open ? '/close.png' : '/open.png'}
-				alt=''
+				alt={open ? 'Close Menu' : 'Open Menu'}
 				width={20}
 				height={20}
 				onClick={() => setOpen(!open)}
 				className='cursor-pointer'
 			/>
 			{open && (
-				<div className='bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10'>
+				<nav
+					className='bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10'
+					role='navigation'
+					aria-label='Menu'>
 					{links.map((item) => (
 						<Link href={item.url} key={item.id} onClick={() => setOpen(false)}>
-							{item.title}
+							<a>{item.title}</a>
 						</Link>
 					))}
 
 					<Link
-						href={user ? '/orders' : 'login'}
+						href={user ? '/orders' : '/login'}
 						onClick={() => setOpen(false)}>
-						{user ? 'Orders' : 'Login'}
+						<a>{user ? 'Orders' : 'Login'}</a>
 					</Link>
 					<Link href='/cart' onClick={() => setOpen(false)}>
-						<CartIcon />
+						<a>
+							<CartIcon />
+						</a>
 					</Link>
-				</div>
+				</nav>
 			)}
 		</div>
 	);

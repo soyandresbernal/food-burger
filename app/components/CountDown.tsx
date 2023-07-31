@@ -1,32 +1,42 @@
-'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 const CountDown = () => {
-	let difference = +new Date(`10/10/2023`) - +new Date();
-	const [delay, setDelay] = useState(difference);
+	const targetDate = useMemo(() => new Date('10/10/2023'), []);
 
-	const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-	const h = Math.floor((difference / (1000 * 60 * 60)) % 24);
-	const m = Math.floor((difference / 1000 / 60) % 60);
-	const s = Math.floor((difference / 1000) % 60);
+	const calculateRemainingTime = useCallback(() => {
+		const difference = +targetDate - +new Date();
+		const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+		const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+		const minutes = Math.floor((difference / (1000 * 60)) % 60);
+		const seconds = Math.floor((difference / 1000) % 60);
+
+		return {
+			days,
+			hours,
+			minutes,
+			seconds
+		};
+	}, [targetDate]);
+
+	const [remainingTime, setRemainingTime] = useState(calculateRemainingTime());
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			setDelay(delay - 1);
+			setRemainingTime(calculateRemainingTime());
 		}, 1000);
-
-		if (delay === 0) {
-			clearInterval(timer);
-		}
 
 		return () => {
 			clearInterval(timer);
 		};
-	});
+	}, [calculateRemainingTime]);
+
 	return (
-		<span className='font-bold text-5xl text-yellow-300'>
-			{d}:{h}:{m}:{s}
-		</span>
+		<div>
+			<span className='font-bold text-5xl text-yellow-300' aria-live='polite'>
+				{remainingTime.days} days, {remainingTime.hours} hours,{' '}
+				{remainingTime.minutes} minutes, {remainingTime.seconds} seconds
+			</span>
+		</div>
 	);
 };
 
